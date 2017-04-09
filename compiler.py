@@ -33,7 +33,6 @@ def _main():
 
 
 
-
         line_no += 1
         startOfBlock = startsBlock(command)
         if startOfBlock:
