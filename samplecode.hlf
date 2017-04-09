@@ -1,0 +1,16 @@
+create task example that uses driveTime to run
+  Go forward for driveTime seconds
+  Turn 90 degrees left
+  Do
+    Turn 10 degrees left
+  9 times
+  Go forward for driveTime seconds
+  python:
+    notUsed = 10
+    name = robot.getName() #this section might change
+  Display name + " is back where I started"
+end task
+
+store 10 in howLong
+run nameRobot using "Our Robot"
+run example using values howLong
