@@ -25,15 +25,13 @@ def _main():
 			indentation.pop()
 			temp = prevRelLine.pop()
 			assert temp == None, "Error, failed to properly close %s" % temp
-
-
-		command = line.split()[0]
 		if prevRelLine[-1] != None and [-1][0] == "Do":
 			0 == 0
 			#TODO: Go back to the latest Do statement and fill in the params of the for loop
 		if prevRelLine[-1] != None:
 			prevRelLine.pop()
-		print(command)
+
+
 
 
 		line_no += 1
