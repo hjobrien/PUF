@@ -9,7 +9,7 @@ class Parser:
         i = 0
 
     """function reads in a user-written file and writes the parsed, python only version to a
-        different .py file. This IO will likeley only be done when the run button is pressed"""
+        different .py file. This IO will likely only be done when the run button is pressed"""
     def parse(self, fileName):
         pyFileName = fileName + ".py"
         fileName += self.EXTENSION
