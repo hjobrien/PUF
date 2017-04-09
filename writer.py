@@ -4,11 +4,16 @@ def getCommand(line):
 
 class Writer:
 	lines = []
-	indent = [0]
+	indent = [""]
 	def __init__(outputFileName):
 		this.outputFileName = outputFileName
 
-	def parse(line):
+	def convert(line):
+		def parse(line):
+			return ""
+	
 
 	def popLine():
-		
+		if lines[-1].rstrip()[-1] == ":":
+			indent.pop()
+		lines.pop()
