@@ -23,6 +23,18 @@ def parseTurn(line):
 	direction = match.group(2)
 	return "self.move(%s, %s)" % angle, direction
 
+def parseDoWhile(line):
+	return "for _ in range(%s):"
+
+def parseWhile(line):
+	match = re.search("(?i)\s*while\s+(.+):", line)
+	if not match:
+		raise Exception("While line has improper syntax")
+	arg = match.group(1)
+	return "while %s:" % arg
+
+
+
 class Writer:
     lines = []
     # indent = [""]
@@ -38,11 +50,20 @@ class Writer:
 				return parseGo(line)
 			elif command == "turn":
 				return parseTurn(line)
+			elif command == "do":
+				return parseDoWhile(line)
+			elif command == "while":
+				return parseWhile(line)
             return ""
 		ws = getLeadingWhitespace(line)
 		line = line.strip()
 		lines.append(ws + parse(line))
 
+	def formatLine(i, *args):
+		if i >= len(lines):
+			raise Exception("Cannot format a non existing line")
+		lines[i] = lines[i] % args
+		return lines[i]
     # def popLine():
     #     if lines[-1].rstrip()[-1] == ":":
     #         indent.pop()
