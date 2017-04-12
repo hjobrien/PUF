@@ -33,6 +33,22 @@ def parseWhile(line):
 	arg = match.group(1)
 	return "while %s:" % arg
 
+def parseIf(line):
+	match = re.search("(?i)\s*if\s+(.+):", line)
+	if not match:
+		raise Exception("If line has improper syntax")
+	arg = match.group(1)
+	return "if %s:" % arg
+
+def parseElseIf(line):
+	match = re.search("(?i)\s*else\s+if\s+(.+):", line)
+	if not match:
+		raise Exception("else if line has improper syntax")
+	arg = match.group(1)
+	return "elif %s:" % arg
+
+def parseElse(line):
+	return "else:"
 
 
 class Writer:
