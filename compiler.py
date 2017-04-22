@@ -1,14 +1,16 @@
 from string_helper import getLeadingWhitespace, whitespaceValid
+from writer import getCommand
 import re
 
 inFileName = "samplecode.hlf"
 outFileName = "samplecode.py"
 
+
 # out = open(outFileName, "w")
 # out.write("import library")
 def _main():
     indentation = [""]
-    prevRelLine = [None] #Previous relevant line
+    prevRelLine = [None]  # Previous relevant line
     startOfBlock = False
     line_no = 1
 
@@ -31,15 +33,20 @@ def _main():
         if prevRelLine[-1] != None:
             prevRelLine.pop()
 
-
+        command = getCommand(line)
 
         line_no += 1
         startOfBlock = startsBlock(command)
         if startOfBlock:
-            prevRelLine.append((command, line_no))
+            t = (command, line_no)
+            prevRelLine.append(t)
+
 
 _blockStarters = ["create", "python:", "do", "if", "else", "else if"]
+
+
 def startsBlock(command):
     return command.lower() in _blockStarters
+
 
 _main()
