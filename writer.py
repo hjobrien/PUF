@@ -3,8 +3,8 @@ from string_helper import getLeadingWhitespace
 
 
 def getCommand(line):
-    match = re.search("(is something)|(else if)|[a-zA-Z]\w+", line)
-    return str(match).lower()
+    match = re.search("((is something)|(else if)|([a-zA-Z]))\w+", line)
+    return match.group(0).lower()
 
 
 def parseGo(line):
@@ -16,7 +16,7 @@ def parseGo(line):
     units = match.group(3)
     if units:
         units = ", \"%s\"" % units
-    return "self.move(\"%s\", new Duration(%s%s))" % direction, time, units
+    return "self.move(\"%s\", new Duration(%s%s))" % (direction, time, units)
 
 
 def parseTurn(line):
@@ -25,7 +25,7 @@ def parseTurn(line):
         raise Exception("Turn line has improper syntax")
     angle = match.group(1)
     direction = match.group(2)
-    return "self.move(%s, %s)" % angle, direction
+    return "self.move(%s, %s)" % (angle, direction)
 
 
 def parseDoWhile(line):
@@ -81,10 +81,11 @@ class Writer:
             elif command == "while":
                 return parseWhile(line)
             else:
-                return ""
+                return "Failed to parse: %s" % line
         ws = getLeadingWhitespace(line)
         line = line.strip()
         self.lines.append(ws + parse(line))
+        return "Soon to be JSON"
 
     def formatLine(self, i, *args):
         if i >= len(self.lines):
@@ -95,3 +96,7 @@ class Writer:
         #     if lines[-1].rstrip()[-1] == ":":
         #         indent.pop()
         #     lines.pop()
+
+    def printLines(self):
+        for line in self.lines:
+            print(line)

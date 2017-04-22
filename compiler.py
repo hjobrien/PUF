@@ -1,5 +1,5 @@
 from string_helper import getLeadingWhitespace, whitespaceValid
-from writer import getCommand
+from writer import getCommand, Writer
 import re
 
 inFileName = "samplecode.hlf"
@@ -14,6 +14,8 @@ def _main():
     startOfBlock = False
     line_no = 1
 
+    writer = Writer(outFileName)
+
     for line in open(inFileName, "r"):
         if not len(line.strip()):
             continue
@@ -26,23 +28,25 @@ def _main():
         while indentation and ws != indentation[-1]:
             indentation.pop()
             temp = prevRelLine.pop()
-            assert temp == None, "Error, failed to properly close %s" % temp
-        if prevRelLine[-1] != None and [-1][0] == "Do":
-            0 == 0
+            assert temp == None or temp[0] not in ["do"], "Error, failed to properly close \"%s\" on line %i" % (temp[0], temp[1])
+        if prevRelLine[-1] != None and prevRelLine[-1][0] == "do":
+            print("Unimplemented")
             # TODO: Go back to the latest Do statement and fill in the params of the for loop
+        else:
+            assert 0==0, "TODO:"
+            print(writer.convert(line))
         if prevRelLine[-1] != None:
             prevRelLine.pop()
-
         command = getCommand(line)
-
         line_no += 1
         startOfBlock = startsBlock(command)
         if startOfBlock:
-            t = (command, line_no)
-            prevRelLine.append(t)
+            prevRelLine.append((command, line_no))
+
+    writer.printLines()
 
 
-_blockStarters = ["create", "python:", "do", "if", "else", "else if"]
+_blockStarters = ["create", "python:", "do", "if", "else", "else if", "python"]
 
 
 def startsBlock(command):
