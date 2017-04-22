@@ -3,8 +3,8 @@ from string_helper import getLeadingWhitespace
 
 
 def getCommand(line):
-    match = re.search("(is something)|(else if)|[a-zA-Z]\w+")
-    return match.lower()
+    match = re.search("(is something)|(else if)|[a-zA-Z]\w+", line)
+    return str(match).lower()
 
 
 def parseGo(line):
@@ -64,8 +64,8 @@ class Writer:
     lines = []
 
     # indent = [""]
-    def __init__(outputFileName):
-        this.outputFileName = outputFileName
+    def __init__(self, outputFileName):
+        self.outputFileName = outputFileName
 
     def convert(self, line):
         def parse(line):
