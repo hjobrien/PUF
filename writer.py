@@ -1,14 +1,21 @@
 import re
 from string_helper import getLeadingWhitespace
 
+PARSE_COMMAND_PATTERN = "((is something)|(else if)|([a-zA-Z]))\w+"
+PARSE_GO_PATTERN = "(?i)\s*go\s+(\w+)\s+for\s+([\w\.]+)(\s+(\w+))?"
+PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+degrees\s+([\w\.]+)"
+PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
+PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
+PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
+
 
 def getCommand(line):
-    match = re.search("((is something)|(else if)|([a-zA-Z]))\w+", line)
+    match = re.search(PARSE_COMMAND_PATTERN, line)
     return match.group(0).lower()
 
 
 def parseGo(line):
-    match = re.search("(?i)\s*go\s+(\w+)\s+for\s+([\w\.]+)(\s+(\w+))?", line)
+    match = re.search(PARSE_GO_PATTERN, line)
     if not match:
         raise Exception("Go line has improper syntax")
     direction = match.group(1)
@@ -20,7 +27,7 @@ def parseGo(line):
 
 
 def parseTurn(line):
-    match = re.search("(?i)\s*turn\s+(\w+)\s+degrees\s+([\w\.]+)", line)
+    match = re.search(PARSE_TURN_PATTERN, line)
     if not match:
         raise Exception("Turn line has improper syntax")
     angle = match.group(1)
@@ -33,7 +40,7 @@ def parseDoWhile(line):
 
 
 def parseWhile(line):
-    match = re.search("(?i)\s*while\s+(.+):", line)
+    match = re.search(PARSE_WHILE_PATTERN, line)
     if not match:
         raise Exception("While line has improper syntax")
     arg = match.group(1)
@@ -41,7 +48,7 @@ def parseWhile(line):
 
 
 def parseIf(line):
-    match = re.search("(?i)\s*if\s+(.+):", line)
+    match = re.search(PARSE_IF_PATTERN, line)
     if not match:
         raise Exception("If line has improper syntax")
     arg = match.group(1)
@@ -49,7 +56,7 @@ def parseIf(line):
 
 
 def parseElseIf(line):
-    match = re.search("(?i)\s*else\s+if\s+(.+):", line)
+    match = re.search(PARSE_ELIF_PATTERN, line)
     if not match:
         raise Exception("else if line has improper syntax")
     arg = match.group(1)
