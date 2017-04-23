@@ -23,7 +23,7 @@ def parseGo(line):
     units = match.group(3)
     if units:
         units = ", \"%s\"" % units
-    return "self.move(\"%s\", new Duration(%s%s))" % (direction, time, units)
+    return (direction, time, units)
 
 
 def parseTurn(line):
@@ -32,19 +32,14 @@ def parseTurn(line):
         raise Exception("Turn line has improper syntax")
     angle = match.group(1)
     direction = match.group(2)
-    return "self.move(%s, %s)" % (angle, direction)
-
-
-def parseDoWhile(line):
-    return "for _ in range(%s):"
-
+    return
 
 def parseWhile(line):
     match = re.search(PARSE_WHILE_PATTERN, line)
     if not match:
         raise Exception("While line has improper syntax")
     arg = match.group(1)
-    return "while %s:" % arg
+    return arg
 
 
 def parseIf(line):
@@ -52,7 +47,7 @@ def parseIf(line):
     if not match:
         raise Exception("If line has improper syntax")
     arg = match.group(1)
-    return "if %s:" % arg
+    return arg
 
 
 def parseElseIf(line):
@@ -60,11 +55,7 @@ def parseElseIf(line):
     if not match:
         raise Exception("else if line has improper syntax")
     arg = match.group(1)
-    return "elif %s:" % arg
-
-
-def parseElse(line):
-    return "else:"
+    return arg
 
 
 class Writer:
@@ -74,24 +65,31 @@ class Writer:
     def __init__(self, outputFileName):
         self.outputFileName = outputFileName
 
+    def getPython(self, line):
+        command = getCommand(line).lower()
+        if not command:
+            return ""
+        elif command == "go":
+            return "self.move(\"%s\", new Duration(%s%s))" % parseGo(line)
+        elif command == "turn":
+            return "self.move(%s, %s)" % parseTurn(line)
+        elif command == "do":
+            return "for _ in range(%s):"
+        elif command == "while":
+            return "while %s:" % parseWhile(line)
+        elif command == "if":
+            return "if %s" % parseIf(line)
+        elif command == "elif":
+            return "elif %s" % parseElseIf(line)
+        elif command == "else":
+            return "else:"
+        else:
+            return "Failed to parse: %s" % line
+
     def convert(self, line):
-        def parse(line):
-            command = getCommand(line).lower()
-            if not command:
-                return ""
-            elif command == "go":
-                return parseGo(line)
-            elif command == "turn":
-                return parseTurn(line)
-            elif command == "do":
-                return parseDoWhile(line)
-            elif command == "while":
-                return parseWhile(line)
-            else:
-                return "Failed to parse: %s" % line
         ws = getLeadingWhitespace(line)
         line = line.strip()
-        self.lines.append(ws + parse(line))
+        self.lines.append(ws + self.getPython(line))
         return "Soon to be JSON"
 
     def formatLine(self, i, *args):
