@@ -32,7 +32,7 @@ def parseTurn(line):
         raise Exception("Turn line has improper syntax")
     angle = match.group(1)
     direction = match.group(2)
-    return
+    return (angle, direction)
 
 def parseWhile(line):
     match = re.search(PARSE_WHILE_PATTERN, line)
