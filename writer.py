@@ -7,6 +7,7 @@ PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+degrees\s+([\w\.]+)"
 PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
 PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
+PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
 
 
 def getCommand(line):
@@ -57,6 +58,12 @@ def parseElseIf(line):
     arg = match.group(1)
     return arg
 
+def parseDisplay(line):
+	match = re.search(PARSE_DISPLAY_PATTERN, line)
+	if not match:
+	        raise Exception("Display line has improper syntax")
+	arg = match.group(1)
+	return arg
 
 class Writer:
     lines = []
