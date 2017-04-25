@@ -1,0 +1,8 @@
+[
+  {"id": 0, "type":"task", "primary":"example", "secondary":"foo bar baz", "prev": -1, "indent":-1, "full_line":"create task example using driveTime to run"},
+  {"id": 1, "type":"movement", "primary":"Go forward", "secondary":"10s", "prev": -1, "indent": 0},
+  {"id": 2, "type":"movement", "primary":"Turn left", "secondary":"90deg", "prev": 1, "indent": 0},
+  {"id": 3, "type":"control", "primary":"while", "secondary":"bar is 1", "prev": -1, "indent":0},
+  {"id": 4, "type":"movement", "primary":"Go forward", "secondary":"10s", "prev": -1, "indent": 1},
+  {"id": 5, "type":"movement", "primary":"Turn right", "secondary":"90deg", "prev": -1, "indent": 0}
+]
