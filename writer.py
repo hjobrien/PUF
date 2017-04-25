@@ -10,7 +10,7 @@ PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
 PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
 PARSE_STORESTRING_PATTERN = "(?i)\s*store\s+\"(\w+)\"\s+in\s+(\w+)"
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
-PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+\(+using\s+(.+)\)\n(.+)\n\(output\s+(\w+)\)\nend\s+task"
+PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+\(+using\s+(.*)\)"
 PARSE_EQUALS_PATTERN = "(?i)\s*(.+)\s*equals\?\s*(.+)"
 PARSE_SET_PATTERN = "(?i)\s*set\s+(\w+)\s+to\s+(\w+)"
 
@@ -93,9 +93,7 @@ def parseTask(line):
         raise Exception("task line has improper syntax")
     name = match.group(1)
     params = match.group(2)
-    body = match.group(3)
-    value = match.group(4)
-    return (name, params, body, value)
+    return (name, params)
 
 
 def parseEquals(line):
@@ -141,6 +139,12 @@ class Writer:
             return "elif %s" % parseElseIf(line)
         elif command == "else":
             return "else:"
+        elif command == "store":
+            return "%s = %s" % parseStore(line)
+        elif command == "display":
+            return "print(%s)" % parseDisplay(line)
+        elif command == "task":
+            return "def %s(%):" % parseTask(line)
         else:
             return "Failed to parse: %s" % line
 
