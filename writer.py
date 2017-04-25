@@ -7,11 +7,7 @@ PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+degrees\s+([\w\.]+)"
 PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
 PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
-<<<<<<< HEAD
-PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
-=======
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
->>>>>>> e7c372347defa82e40ddc5c2374ada411d5eabc6
 
 
 def getCommand(line):
@@ -62,23 +58,12 @@ def parseElseIf(line):
     arg = match.group(1)
     return arg
 
-
-def parseStore(line):
-    match = re.search(PARSE_STORE_PATTERN, line)
-    if not match:
-        raise Exception("store line has improper syntax")
-    value = match.group(1)
-    name = match.group(2)
-    return (name, value)
-
-
 def parseDisplay(line):
 	match = re.search(PARSE_DISPLAY_PATTERN, line)
 	if not match:
 	        raise Exception("Display line has improper syntax")
 	arg = match.group(1)
 	return arg
-
 
 class Writer:
     lines = []
@@ -118,7 +103,7 @@ class Writer:
             raise Exception("Cannot format a non existing line")
         self.lines[i] = self.lines[i] % args
         return self.lines[i]
-        # def popLine():
+        # def popLine(): 
         #     if lines[-1].rstrip()[-1] == ":":
         #         indent.pop()
         #     lines.pop()
