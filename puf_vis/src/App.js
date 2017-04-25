@@ -4,12 +4,15 @@ import './App.css';
 
 const data = require('../data/example');
 
-// var program = require('json!../data/program.json');
 let indent = 0;
 const startTaskHeight = 5;
 const height = 5;
 const endHeight = 1;
 const blockWidth = 12;
+
+// const onMouseOver = function(fullLine){
+//
+// };
 
 const taskStyle = function (blockHeight) {
     return {
@@ -214,6 +217,8 @@ class App extends Component {
                 blocks.push(<EndTaskBlock/>)
             } else if (toAdd === 'control'){
                 blocks.push(<EndControlBlock/>)
+            } else {
+                console.error("could not close block of type: " + toAdd);
             }
             lastIndent--;
         }
