@@ -8,8 +8,11 @@ PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
 PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
 PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
+PARSE_STORESTRING_PATTERN = "(?i)\s*store\s+\"(\w+)\"\s+in\s+(\w+)"
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
 PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+\(+using\s+(.+)\)\n(.+)\n\(output\s+(\w+)\)\nend\s+task"
+PARSE_EQUALS_PATTERN = "(?i)\s*(.+)\s*equals\?\s*(.+)"
+PARSE_SET_PATTERN = "(?i)\s*set\s+(\w+)\s+to\s+(\w+)"
 
 
 def getCommand(line):
@@ -62,20 +65,27 @@ def parseElseIf(line):
 
 
 def parseStore(line):
-    match = re.search(PARSE_STORE_PATTERN, line)
-    if not match:
+    match1 = re.search(PARSE_STORE_PATTERN, line)
+    match2 = re.search(PARSE_STORESTRING_PATTERN, line)
+    if not match1 and not match2:
         raise Exception("store line has improper syntax")
-    value = match.group(1)
-    name = match.group(2)
-    return (name, value)
+    if match1:
+        value = match1.group(1)
+        name = match1.group(2)
+        return (name, value)
+    else:
+        value = match2.group(1)
+        name = match2.group(2)
+        return (name, value)
 
 
 def parseDisplay(line):
-	match = re.search(PARSE_DISPLAY_PATTERN, line)
-	if not match:
-	        raise Exception("Display line has improper syntax")
-	arg = match.group(1)
-	return arg
+    match = re.search(PARSE_DISPLAY_PATTERN, line)
+    if not match:
+            raise Exception("Display line has improper syntax")
+    arg = match.group(1)
+    return arg
+
 
 def parseTask(line):
     match = re.search(PARSE_TASK_PATTERN, line)
@@ -86,6 +96,25 @@ def parseTask(line):
     body = match.group(3)
     value = match.group(4)
     return (name, params, body, value)
+
+
+def parseEquals(line):
+    match = re.search(PARSE_EQUALS_PATTERN, line)
+    if not match:
+            raise Exception("Equals line has improper syntax")
+    left = match.group(1)
+    right = match.group(2)
+    return (left, right)
+
+
+def parseSet(line):
+    match = re.search(PARSE_SET_PATTERN, line)
+    if not match:
+            raise Exception("Set line has improper syntax")
+    name = match.group(1)
+    value = match.group(2)
+    return (name, value)
+
 
 class Writer:
     lines = []
