@@ -9,6 +9,7 @@ PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
 PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
+PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+\(+using\s+(.+)\)\n(.+)\n\(output\s+(\w+)\)\nend\s+task"
 
 
 def getCommand(line):
@@ -76,6 +77,15 @@ def parseDisplay(line):
 	arg = match.group(1)
 	return arg
 
+def parseTask(line):
+    match = re.search(PARSE_TASK_PATTERN, line)
+    if not match:
+        raise Exception("task line has improper syntax")
+    name = match.group(1)
+    params = match.group(2)
+    body = match.group(3)
+    value = match.group(4)
+    return (name, params, body, value)
 
 class Writer:
     lines = []
