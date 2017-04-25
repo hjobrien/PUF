@@ -34,10 +34,11 @@ def _main():
             # TODO: Go back to the latest Do statement and fill in the params of the for loop
         else:
             assert 0==0, "TODO:"
-            print(writer.convert(line))
+            writer.convert(line)
         if prevRelLine[-1] != None:
             prevRelLine.pop()
         command = getCommand(line)
+        print(prevRelLine[-2] if len(prevRelLine) > 1 else "Top")
         line_no += 1
         startOfBlock = startsBlock(command)
         if startOfBlock:

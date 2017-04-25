@@ -90,7 +90,6 @@ class Writer:
         ws = getLeadingWhitespace(line)
         line = line.strip()
         self.lines.append(ws + self.getPython(line))
-        return "Soon to be JSON"
 
     def formatLine(self, i, *args):
         if i >= len(self.lines):
