@@ -243,6 +243,16 @@ class App extends Component {
                 break;
         }
     }
+    while(openClauses.length > 0){
+        let toAdd = openClauses.pop();
+        if(toAdd === 'task'){
+            blocks.push(<EndTaskBlock/>)
+        } else if (toAdd === 'control'){
+            blocks.push(<EndControlBlock/>)
+        } else {
+            console.error("could not close block of type: " + toAdd);
+        }
+    }
     return (
       <div className="App">
         <div className="App-header">
