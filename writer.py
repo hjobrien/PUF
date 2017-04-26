@@ -144,7 +144,7 @@ class Writer:
         elif command == "display":
             return "print(%s)" % parseDisplay(line)
         elif command == "task":
-            return "def %s(%):" % parseTask(line)
+            return "def %s(%s):" % parseTask(line)
         else:
             return "Failed to parse: %s" % line
 
