@@ -40,6 +40,21 @@ const movementStyle = function () {
     }
 };
 
+const pyStyle = function () {
+    return {
+        background: '#505050',
+        width: blockWidth + 'em',
+        height: height + 'em',
+        margin: '0 auto',
+        borderStyle: 'solid',
+        borderColor: "#000",
+        position: 'relative',
+        left: indent * 50,
+        color: '#FFFFFF'
+    }
+};
+
+
 const logicStyle = function () {
     return {
         background: '#bc0adb',
@@ -82,6 +97,16 @@ const functionHeading = function () {
         margin: '0'
     }
 };
+
+const pythonHeading = function () {
+    return {
+        fontWeight: '700',
+        position: 'relative',
+        top: '20',
+        margin: '0'
+    }
+};
+
 
 const controlHeading = function () {
     return {
@@ -128,6 +153,29 @@ class TaskBlock extends Component{
     }
 }
 
+class CallBlock extends Component{
+
+    render(){
+        const element = (
+            <div style={taskStyle(startTaskHeight)}>
+                <p style={blockHeading()}>Run:</p>
+                <table>
+                    <tr>
+                        <td style={blockInfo()}>{this.props.primary}</td>
+                    </tr>
+                    <tr>
+                        <td style={rowHead()}>With</td>
+                        <td style={blockInfo()}>{this.props.secondary}</td>
+                    </tr>
+                </table>
+            </div>
+
+        );
+        return element
+
+    }
+}
+
 class ControlBlock extends Component {
     render(){
         const element = (
@@ -161,7 +209,7 @@ class MovementBlock extends Component {
     render(){
         return (
             <div style={movementStyle()}>
-                <p style={blockHeading()}>Go:</p>
+                <p style={blockHeading()}>{this.props.tertiary}:</p>
                 <table>
                     <tr style={blockInfo()}>
                         <td style={rowHead()}>Direction: </td>
@@ -178,18 +226,29 @@ class MovementBlock extends Component {
     }
 }
 
+class PythonBlock extends Component {
+    render(){
+        return (
+            <div style={pyStyle()}>
+                <p style={pythonHeading()}>Python</p>
+            </div>
+        )
+
+    }
+}
+
 class LogicBlock extends Component {
     render(){
         return (
             <div style={logicStyle()}>
-                <p style={blockHeading()}>Store:</p>
+                <p style={blockHeading()}>{this.props.tertiary}</p>
                 <table>
                     <tr style={blockInfo()}>
-                        <td style={rowHead()}>Value: </td>
-                        <td>{this.props.secondary}</td>
+                        <td style={rowHead()}>Set: </td>
+                        <td>{this.props.primary}</td>
                     </tr>
                     <tr style={blockInfo()}>
-                        <td style={rowHead()}>Name: </td>
+                        <td style={rowHead()}>To: </td>
                         <td>{this.props.secondary}</td>
                     </tr>
                 </table>
@@ -229,14 +288,20 @@ class App extends Component {
                 blocks.push(<TaskBlock primary={block.primary} secondary={block.secondary}/>);
                 break;
             case "movement":
-                blocks.push(<MovementBlock primary={block.primary} secondary={block.secondary}/>);
+                blocks.push(<MovementBlock primary={block.primary} secondary={block.secondary} tertiary={block.tertiary}/>);
                 break;
             case "logic":
-                blocks.push(<LogicBlock primary={block.primary} secondary={block.secondary}/>);
+                blocks.push(<LogicBlock primary={block.primary} secondary={block.secondary} tertiary={block.tertiary}/>);
+                break;
+            case "python":
+                blocks.push(<PythonBlock primary={block.primary} secondary={block.secondary}/>);
                 break;
             case "control":
                 openClauses.push('control');
                 blocks.push(<ControlBlock primary={block.primary} secondary={block.secondary}/>);
+                break;
+            case "run":
+                blocks.push(<CallBlock primary={block.primary} secondary={block.secondary}/>);
                 break;
             default:
                 console.error("invalid block type: " + type);
