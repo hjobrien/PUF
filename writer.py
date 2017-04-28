@@ -26,10 +26,12 @@ def parseGo(line):
         raise Exception("Go line has improper syntax")
     direction = match.group(1)
     time = match.group(2)
+    """
     units = match.group(3)
     if units:
-        units = ", \"%s\"" % units
-    return (direction, time, units)
+        units = ", \"%s\""
+    """
+    return (direction, time)
 
 
 def parseTurn(line):
@@ -131,7 +133,7 @@ class Writer:
         if not command:
             return ""
         elif command == "go":
-            return "self.move(\"%s\", new Duration(%s%s))" % parseGo(line)
+            return "self.move(\"%s\", new Duration(%s))" % parseGo(line)
         elif command == "turn":
             return "self.move(%s, %s)" % parseTurn(line)
         elif command == "do":

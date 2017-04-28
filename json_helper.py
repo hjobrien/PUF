@@ -37,11 +37,12 @@ def toJson(line):
         type = "Error"
     elif command == "go":
         type = "Movement"
-        primary, secondary, tertiary = parseGo(line)
+        primary, secondary = parseGo(line)
+        tertiary = "Go"
     elif command == "turn":
         type = "Movement"
-        primary = "Turn"
-        secondary, tertiary = parseTurn(line)
+        primary, secondary = parseTurn(line)
+        tertiary = "Turn"
     elif command == "do":
         type = "Control"
         primary = "do loop"
@@ -70,7 +71,7 @@ def toJson(line):
         "store <value> in <name>"
         type = "Logic"
         secondary, primary = parseStore(line)
-        tertiary = None
+        tertiary = "Assign"
     """
     elif command == "display":
         type =
@@ -91,7 +92,7 @@ def toJson(line):
         "set <name> to <value>"
         type = "Logic"
         primary, secondary = parseSet(line)
-        tertiary = None
+        tertiary = "Assign"
     else:
         type = "Error"
 
