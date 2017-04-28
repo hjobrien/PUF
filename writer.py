@@ -65,6 +65,7 @@ def parseElseIf(line):
 
 
 def parseStore(line):
+    "Store <value> in <name>"
     match1 = re.search(PARSE_STORE_PATTERN, line)
     match2 = re.search(PARSE_STORESTRING_PATTERN, line)
     if not match1 and not match2:
@@ -80,6 +81,7 @@ def parseStore(line):
 
 
 def parseDisplay(line):
+    "Display <value>/<name>"
     match = re.search(PARSE_DISPLAY_PATTERN, line)
     if not match:
             raise Exception("Display line has improper syntax")
@@ -88,6 +90,7 @@ def parseDisplay(line):
 
 
 def parseTask(line):
+    "Create task <name> (using <param1> ... <paramN>)"
     match = re.search(PARSE_TASK_PATTERN, line)
     if not match:
         raise Exception("task line has improper syntax")
@@ -97,6 +100,7 @@ def parseTask(line):
 
 
 def parseEquals(line):
+    "<left> equals? <right>"
     match = re.search(PARSE_EQUALS_PATTERN, line)
     if not match:
             raise Exception("Equals line has improper syntax")
@@ -106,6 +110,7 @@ def parseEquals(line):
 
 
 def parseSet(line):
+    "Set <name> to <value>"
     match = re.search(PARSE_SET_PATTERN, line)
     if not match:
             raise Exception("Set line has improper syntax")
@@ -143,8 +148,12 @@ class Writer:
             return "%s = %s" % parseStore(line)
         elif command == "display":
             return "print(%s)" % parseDisplay(line)
-        elif command == "task":
+        elif command == "create":
             return "def %s(%s):" % parseTask(line)
+        elif command == "equals?":
+            return "%s == %s" % parseEquals(line)
+        elif command == "set":
+            return "%s = %s" % parseSet(line)
         else:
             return "Failed to parse: %s" % line
 

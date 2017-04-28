@@ -66,6 +66,32 @@ def toJson(line):
         primary = "Else statement"
         secondary = None
         tertiary = None
+    elif command == "store":
+        "store <value> in <name>"
+        type = "Logic"
+        secondary, primary = parseStore(line)
+        tertiary = None
+    """
+    elif command == "display":
+        type =
+        primary =
+        secondary =
+        tertiary =
+    """
+    elif command == "create":
+        "create task <name> (using <param1> ... <paramN>)"
+        type = "Task"
+        primary, secondary = parseTask(line)
+        tertiary = None
+    elif command == "equals?":
+        type = "Logic"
+        primary, secondary = parseEquals(line)
+        tertiary = None
+    elif command == "set":
+        "set <name> to <value>"
+        type = "Logic"
+        primary, secondary = parseSet(line)
+        tertiary = None
     else:
         type = "Error"
 
