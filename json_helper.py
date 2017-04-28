@@ -5,7 +5,7 @@ class JsonLine:
         self.type = ""
         self.id = -69
         self.prev = -1
-        self.parent = -420
+        self.indent = -420
         self.primary = "Primary Descriptor Not Set"
         self.secondary = "Secondary descriptor not set"
         self.tertiary = "Tertiary descriptor not set"
@@ -17,13 +17,13 @@ class JsonLine:
         "type"  :   "%s",
         "id"    :   %i,
         "prev"  :   %i,
-        "parent"    :   %i,
+        "indent"    :   %i,
         "primary"   :   "%s",
         "secondary" :   "%s",
         "tertiary"  :   "%s"
         "line"      :   "%s"
         }
-        ''' % (self.type, self.id, self.prev, self.parent, self.primary, self.secondary, self.tertiary, self.line)
+        ''' % (self.type, self.id, self.prev, self.indent, self.primary, self.secondary, self.tertiary, self.line)
 
 
 def toJson(line):
@@ -34,7 +34,7 @@ def toJson(line):
     command = getCommand(line).lower()
     type, primary, secondary, tertiary = None, None, None, None
     if not command:
-        return "{\"Type\": \"Error\"}"
+        type = "Error"
     elif command == "go":
         type = "Movement"
         primary, secondary, tertiary = parseGo(line)
@@ -67,4 +67,12 @@ def toJson(line):
         secondary = None
         tertiary = None
     else:
-        return "{\"Type\": \"Error\"}"
+        type = "Error"
+
+    obj = JsonLine()
+    obj.type = type
+    obj.primary = primary
+    obj.secondary = secondary
+    obj.tertiary = tertiary
+    obj.line = line
+    return obj

@@ -1,5 +1,6 @@
 from string_helper import getLeadingWhitespace, whitespaceValid
 from writer import getCommand, Writer
+from json_helper import toJson, JsonLine
 import re
 
 inFileName = "samplecode.hlf"
@@ -35,10 +36,16 @@ def _main():
         else:
             assert 0==0, "TODO:"
             writer.convert(line)
+            jsonObj = toJson(line)
+            jsonObj.id = line_no
+            jsonObj.prev = line_no - 1  #Dis shit is hacked together as fuck
+            jsonObj.indent = len(ws)
+            print(jsonObj)
+
         if prevRelLine[-1] != None:
             prevRelLine.pop()
         command = getCommand(line)
-        print(prevRelLine[-2] if len(prevRelLine) > 1 else "Top")
+        # print(prevRelLine[-2] if len(prevRelLine) > 1 else "Top")
         line_no += 1
         startOfBlock = startsBlock(command)
         if startOfBlock:
