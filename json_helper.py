@@ -72,15 +72,13 @@ def toJson(line):
         type = "Logic"
         secondary, primary = parseStore(line)
         tertiary = "Assign"
-    """
-    elif command == "display":
-        type =
-        primary =
-        secondary =
-        tertiary =
-    """
+    # elif command == "display":
+    #     type =
+    #     primary =
+    #     secondary =
+    #     tertiary =
     elif command == "create":
-        "create task <name> (using <param1> ... <paramN>)"
+        # "create task <name> (using <param1> ... <paramN>)"
         type = "Task"
         primary, secondary = parseTask(line)
         tertiary = None
@@ -93,7 +91,7 @@ def toJson(line):
         type = "Logic"
         primary, secondary = parseSet(line)
         tertiary = "Assign"
-    elif command = "run":
+    elif command == "run":
         type = "Task"
         primary,
     else:

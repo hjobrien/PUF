@@ -4,7 +4,8 @@ from json_helper import toJson, JsonLine
 import re
 
 inFileName = "samplecode.hlf"
-outFileName = "samplecode.py"
+outFileName = "hankisverycool.py"
+jsonFileName = "hankisverycool.json"
 
 
 # out = open(outFileName, "w")
@@ -16,6 +17,7 @@ def _main():
     line_no = 1
 
     writer = Writer(outFileName)
+    jOut = open(jsonFileName, "w")
 
     for line in open(inFileName, "r"):
         if not len(line.strip()):
@@ -31,16 +33,15 @@ def _main():
             temp = prevRelLine.pop()
             assert temp == None or temp[0] not in ["do"], "Error, failed to properly close \"%s\" on line %i" % (temp[0], temp[1])
         if prevRelLine[-1] != None and prevRelLine[-1][0] == "do":
-            print("Unimplemented")
+            writer.formatLine(prevRelLine[-1][1], re.search("\d+", line).group())
             # TODO: Go back to the latest Do statement and fill in the params of the for loop
         else:
-            assert 0==0, "TODO:"
             writer.convert(line)
             jsonObj = toJson(line)
             jsonObj.id = line_no
             jsonObj.prev = line_no - 1  #Dis shit is hacked together as fuck
             jsonObj.indent = len(ws)
-            print(jsonObj)
+            jOut.write(jsonObj)
 
         if prevRelLine[-1] != None:
             prevRelLine.pop()
@@ -52,6 +53,8 @@ def _main():
             prevRelLine.append((command, line_no))
 
     writer.printLines()
+    writer.close()
+    jOut.close()
 
 
 _blockStarters = ["create", "python:", "do", "if", "else", "else if", "python"]

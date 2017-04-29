@@ -10,7 +10,7 @@ PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
 PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
 PARSE_STORESTRING_PATTERN = "(?i)\s*store\s+\"(\w+)\"\s+in\s+(\w+)"
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
-PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+\(+using\s+(.*)\)"
+PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+using\s+(.*)"
 PARSE_EQUALS_PATTERN = "(?i)\s*(.+)\s*equals\?\s*(.+)"
 PARSE_SET_PATTERN = "(?i)\s*set\s+(\w+)\s+to\s+(\w+)"
 
@@ -127,6 +127,7 @@ class Writer:
     # indent = [""]
     def __init__(self, outputFileName):
         self.outputFileName = outputFileName
+        self.fileOut = open(outputFileName, "w")
 
     def getPython(self, line):
         command = getCommand(line).lower()
@@ -164,6 +165,7 @@ class Writer:
         line = line.strip()
         self.lines.append(ws + self.getPython(line))
 
+
     def formatLine(self, i, *args):
         if i >= len(self.lines):
             raise Exception("Cannot format a non existing line")
@@ -177,3 +179,8 @@ class Writer:
     def printLines(self):
         for line in self.lines:
             print(line)
+
+    def close(self):
+        for line in self.lines:
+            self.fileOut.write(line)
+        self.fileOut.close()

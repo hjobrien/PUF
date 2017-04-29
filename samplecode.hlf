@@ -1,4 +1,4 @@
-create task example that uses driveTime to run
+Create Task example using var1 var2
   Go forward for driveTime seconds
   Turn 90 degrees left
   Do
