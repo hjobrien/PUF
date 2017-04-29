@@ -15,9 +15,9 @@ class JsonLine:
         return '''
         {
         "type"  :   "%s",
-        "id"    :   %i,
-        "prev"  :   %i,
-        "indent"    :   %i,
+        "id"    :   "%i",
+        "prev"  :   "%i",
+        "indent"    :   "%i",
         "primary"   :   "%s",
         "secondary" :   "%s",
         "tertiary"  :   "%s",

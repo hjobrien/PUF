@@ -1,3 +1,4 @@
+from RobotController import controller
   loopNum = 0
   sideLength = 0
   Failed to parse: python:

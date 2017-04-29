@@ -204,6 +204,7 @@ class Writer:
             print(line)
 
     def close(self):
+        self.fileOut.write("from RobotController import controller\n")
         for line in self.lines:
             self.fileOut.write(line + "\n")
         self.fileOut.close()
