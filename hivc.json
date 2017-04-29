@@ -75,7 +75,7 @@
         "tertiary"  :   "Turn",
         "line"      :   "turn left for angle"
         }
-        ,,,
+        ,,
         {
         "type"  :   "Logic",
         "id"    :   "13",

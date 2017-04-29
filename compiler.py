@@ -21,12 +21,11 @@ def _main():
     jOut.write("[")
 
     for line in open(inFileName, "r"):
+        if not len(line.strip()):
+            continue
         line = processComments(line)
         if line_no != 1:
             jOut.write(",")
-        if not len(line.strip()):
-            continue
-
         assert whitespaceValid(line, indentation, startOfBlock), "Error: Invalid whitespace on line: %i" % line_no
         if startOfBlock:
             indentation.append(getLeadingWhitespace(line))
