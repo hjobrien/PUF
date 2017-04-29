@@ -6,7 +6,7 @@
         "indent"    :   0,
         "primary"   :   "driveSquare",
         "secondary" :   " using sideLength",
-        "tertiary"  :   "None"
+        "tertiary"  :   "None",
         "line"      :   "create task driveSquare using sideLength"
         }
         ,
@@ -17,7 +17,7 @@
         "indent"    :   2,
         "primary"   :   "do loop",
         "secondary" :   "None",
-        "tertiary"  :   "None"
+        "tertiary"  :   "None",
         "line"      :   "do"
         }
         ,
@@ -28,7 +28,7 @@
         "indent"    :   4,
         "primary"   :   "forward",
         "secondary" :   "sideLength",
-        "tertiary"  :   "Go"
+        "tertiary"  :   "Go",
         "line"      :   "go forward for sideLength seconds"
         }
         ,
@@ -39,7 +39,7 @@
         "indent"    :   4,
         "primary"   :   "left",
         "secondary" :   "for",
-        "tertiary"  :   "Turn"
+        "tertiary"  :   "Turn",
         "line"      :   "turn left for 90"
         }
         ,,,
@@ -50,7 +50,7 @@
         "indent"    :   0,
         "primary"   :   "10",
         "secondary" :   "driveTime",
-        "tertiary"  :   "Assign"
+        "tertiary"  :   "Assign",
         "line"      :   "store 10 in driveTime"
         }
         ,
@@ -61,7 +61,7 @@
         "indent"    :   0,
         "primary"   :   "None",
         "secondary" :   "None",
-        "tertiary"  :   "None"
+        "tertiary"  :   "None",
         "line"      :   "run driveSquare with driveTime"
         }
         ,
@@ -72,7 +72,7 @@
         "indent"    :   0,
         "primary"   :   "5",
         "secondary" :   "moveTime",
-        "tertiary"  :   "Assign"
+        "tertiary"  :   "Assign",
         "line"      :   "store 5 in moveTime"
         }
         ,
@@ -83,7 +83,7 @@
         "indent"    :   0,
         "primary"   :   "backward",
         "secondary" :   "moveTime",
-        "tertiary"  :   "Go"
+        "tertiary"  :   "Go",
         "line"      :   "go backward for moveTime seconds"
         }
         ,
@@ -94,7 +94,7 @@
         "indent"    :   0,
         "primary"   :   "None",
         "secondary" :   "None",
-        "tertiary"  :   "None"
+        "tertiary"  :   "None",
         "line"      :   "run driveSquare with moveTime"
         }
         ]

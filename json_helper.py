@@ -20,7 +20,7 @@ class JsonLine:
         "indent"    :   %i,
         "primary"   :   "%s",
         "secondary" :   "%s",
-        "tertiary"  :   "%s"
+        "tertiary"  :   "%s",
         "line"      :   "%s"
         }
         ''' % (self.type, self.id, self.prev, self.indent, self.primary, self.secondary, self.tertiary, self.line)

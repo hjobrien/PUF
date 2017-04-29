@@ -4,8 +4,8 @@ from json_helper import toJson, JsonLine
 import re
 
 inFileName = "driveExplore"
-outFileName = "hankisverycool.py"
-jsonFileName = "hankisverycool.json"
+outFileName = "hivc.py"
+jsonFileName = "hivc.json"
 
 
 # out = open(outFileName, "w")
