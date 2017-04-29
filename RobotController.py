@@ -4,35 +4,48 @@ servo1 = PWM.Servo()
 servo2 = PWM.Servo()
 
 ## FIRST MOTOR
-# Set servo on GPIO17 to 800µs
-servo1.set_servo(17, 800)
-# Set servo on GPIO17 to 2200µs
-servo1.set_servo(17, 2200)
+servo1.set_servo(17, 1500)
+
 
 ## SECOND MOTOR
-servo2.set_servo(18, 800)
-servo2.set_servo(18, 2000)
+servo2.set_servo(18, 1500)
 
-# Clear servo on GPIO17 and GPIO18
-servo1.stop_servo(17)
-servo2.stop_servo(18)
+class RobotController:
+    #Clockwise is positive
+
+    #Servo1 = LEFT MOTOR
+    #Servo2 = RIGHT MOTOR
+
+    def __init__(self):
+        self.velocity = 0
+        self.angular_velocity = 0
+
+    def to_pwm(self):
+        right, left = self.velocity, self.velocity
+        left += self.angular_velocity
+        right -= self.angular_velocity
+        return left, right
+
+    def toMotor(self):
+        left, right = self.to_pwm()
+        servo1.set_servo(17, left)
+        servo2.set_servo(18, right)
+
+    def stopMoving(self):
+        self.velocity = 0
+        self.angular_velocity = 0
+        self.toMotor()
+
+    def move(self, direction, duration, velocity=1):
+        dir = -1 if direction.lower() == "backwards" else 1
+        self.velocity *= dir
+        self.toMotor()
+
+    def turn(self, direction, duration, velocity=1):
+        dir = -1 if direction.lower() == "clockwise" else 1
+        self.angular_velocity *= dir
+        self.toMotor()
 
 
-class Servo:
+controller = RobotController()
 
-   def __init__(self, dma_channel=0, subcycle_time_us=20000, pulse_incr_us=10):
-       """Makes sure PWM is setup with the correct increment granularity and
-       subcycle time.
-       """
-       self.dma_channel = dma_channel
-       self.subcycle_time_us = subcycle_time_us
-       self.pulse_incr_us = pulse_incr_us
-
-   def set_servo(self, gpio, pulse_width_us):
-       """Sets a pulse-width on a gpio to repeat every subcycle
-       (by default every 20ms).
-       """
-
-
-   def stop_servo(self, gpio):
-      "Stops servo activity for this gpio"

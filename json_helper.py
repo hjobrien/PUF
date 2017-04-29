@@ -104,5 +104,5 @@ def toJson(line):
     obj.primary = primary
     obj.secondary = secondary
     obj.tertiary = tertiary
-    obj.line = line
+    obj.line = line.strip()
     return obj
