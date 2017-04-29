@@ -149,7 +149,7 @@ class Writer:
         elif command == "go":
             return "controller.move(\"%s\", %s)" % parseGo(line)
         elif command == "turn":
-            return "controller.turn(%s, %s)" % parseTurn(line)
+            return "controller.turn(\"%s\", %s)" % parseTurn(line)
         elif command == "do":
             self.mark()
             return "for _ in range(%s):"
