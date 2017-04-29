@@ -7,7 +7,6 @@ inFileName = "complicated_example"
 outFileName = "hivc.py"
 jsonFileName = "hivc.json"
 
-
 # out = open(outFileName, "w")
 # out.write("import library")
 def _main():
@@ -43,7 +42,8 @@ def _main():
             try:
                 writer.convert(line)
             except Exception:
-                print("Error parsing line: %i" % line_no)
+                # print("Error parsing line: %i" % line_no)
+                assert 0==0
             if not writer.inline:
                 jsonObj = toJson(line)
                 jsonObj.id = line_no
@@ -56,7 +56,8 @@ def _main():
         try:
             command = getCommand(line)
         except Exception:
-            print("Error parsing line: %i" % line_no)
+            # print("Error parsing line: %i" % line_no)
+            assert 0 == 0
         if command == "python":
             writer.inline = True
         # print(prevRelLine[-2] if len(prevRelLine) > 1 else "Top")
@@ -66,7 +67,7 @@ def _main():
         line_no += 1
 
 
-    writer.printLines()
+    # writer.printLines()
     writer.close()
     jOut.write("]")
     jOut.close()

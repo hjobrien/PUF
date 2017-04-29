@@ -2,7 +2,6 @@ from RobotController import controller
 def arcPath():
   loopNum = 0
   sideLength = 0
-  Failed to parse: python:
   import random
   i = 0
   sideLength = random.randInt(10)

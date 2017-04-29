@@ -176,10 +176,10 @@ class Writer:
             return "%s = %s" % parseSet(line)
         elif command == "run":
             return "%s(%s)" % parseRun(line)
-        elif command == "python:":
+        elif command == "python:" or command == "python":
             assert 0==0
         else:
-            return "Failed to parse: %s" % line
+            return "#Failed to parse: %s" % line
 
     def convert(self, line):
         if self.inline:
