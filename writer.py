@@ -3,7 +3,7 @@ from string_helper import getLeadingWhitespace, commasInArgs
 
 PARSE_COMMAND_PATTERN = "((is something)|(else if)|([a-zA-Z]))\w+"
 PARSE_GO_PATTERN = "(?i)\s*go\s+(\w+)\s+for\s+([\w\.]+)(\s+(\w+))?"
-PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+([\w\.]+)"
+PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+for\s+([\w\.]+)"
 PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
 PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
@@ -143,9 +143,9 @@ class Writer:
         if not command:
             return ""
         elif command == "go":
-            return "self.move(\"%s\", new Duration(%s))" % parseGo(line)
+            return "controller.move(\"%s\", %s)" % parseGo(line)
         elif command == "turn":
-            return "self.move(%s, %s)" % parseTurn(line)
+            return "controller.turn(%s, %s)" % parseTurn(line)
         elif command == "do":
             return "for _ in range(%s):"
         elif command == "while":
@@ -161,7 +161,10 @@ class Writer:
         elif command == "display":
             return "print(%s)" % parseDisplay(line)
         elif command == "create":
-            return "def %s(%s):" % parseTask(line)
+            fun, args = parseTask(line)
+            args = args.replace("using", "")
+            args = args.strip()
+            return "def %s(%s):" % (fun,args)
         elif command == "equals?":
             return "%s == %s" % parseEquals(line)
         elif command == "set":

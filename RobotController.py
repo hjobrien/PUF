@@ -53,7 +53,7 @@ class RobotController:
         self.stopMoving()
 
     def turn(self, direction, duration, velocity=1):
-        dir = -1 if direction.lower() == "clockwise" else 1
+        dir = -1 if direction.lower() == "right" else 1
         self.angular_velocity *= dir
         self.toMotor()
         time.sleep(duration)

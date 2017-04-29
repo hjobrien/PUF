@@ -38,7 +38,7 @@
         "prev"  :   3,
         "indent"    :   4,
         "primary"   :   "left",
-        "secondary" :   "for",
+        "secondary" :   "90",
         "tertiary"  :   "Turn",
         "line"      :   "turn left for 90"
         }
