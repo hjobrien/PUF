@@ -23,7 +23,7 @@ class JsonLine:
         "tertiary"  :   "%s",
         "line"      :   "%s"
         }
-        ''' % (self.type, self.id, self.prev, self.indent, self.primary, self.secondary, self.tertiary, self.line)
+        ''' % (self.type if self.type else "", self.id if self.id else "", self.prev if self.prev else "", self.indent if self.ident else "", self.primary if self.primary else "", self.secondary if self.secondary else "", self.tertiary if self.tertiary else "", self.line) if self.line else ""
 
 
 def toJson(line):
