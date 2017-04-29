@@ -4,49 +4,16 @@
         "id"    :   1,
         "prev"  :   0,
         "indent"    :   0,
-        "primary"   :   "arcPath",
-        "secondary" :   "None",
+        "primary"   :   "driveSquare",
+        "secondary" :   " using sideLength",
         "tertiary"  :   "None"
-        "line"      :   "create task arcPath"
+        "line"      :   "create task driveSquare using sideLength"
         }
         ,
-        {
-        "type"  :   "Logic",
-        "id"    :   2,
-        "prev"  :   1,
-        "indent"    :   2,
-        "primary"   :   "0",
-        "secondary" :   "loopNum",
-        "tertiary"  :   "Assign"
-        "line"      :   "store 0 in loopNum"
-        }
-        ,
-        {
-        "type"  :   "Logic",
-        "id"    :   3,
-        "prev"  :   2,
-        "indent"    :   2,
-        "primary"   :   "0",
-        "secondary" :   "sideLength",
-        "tertiary"  :   "Assign"
-        "line"      :   "store 0 in sideLength"
-        }
-        ,
-        {
-        "type"  :   "Error",
-        "id"    :   4,
-        "prev"  :   3,
-        "indent"    :   2,
-        "primary"   :   "None",
-        "secondary" :   "None",
-        "tertiary"  :   "None"
-        "line"      :   "python:"
-        }
-        ,,,,,
         {
         "type"  :   "Control",
-        "id"    :   9,
-        "prev"  :   8,
+        "id"    :   2,
+        "prev"  :   1,
         "indent"    :   2,
         "primary"   :   "do loop",
         "secondary" :   "None",
@@ -56,8 +23,8 @@
         ,
         {
         "type"  :   "Movement",
-        "id"    :   10,
-        "prev"  :   9,
+        "id"    :   3,
+        "prev"  :   2,
         "indent"    :   4,
         "primary"   :   "forward",
         "secondary" :   "sideLength",
@@ -65,3 +32,69 @@
         "line"      :   "go forward for sideLength seconds"
         }
         ,
+        {
+        "type"  :   "Movement",
+        "id"    :   4,
+        "prev"  :   3,
+        "indent"    :   4,
+        "primary"   :   "left",
+        "secondary" :   "for",
+        "tertiary"  :   "Turn"
+        "line"      :   "turn left for 90"
+        }
+        ,,,
+        {
+        "type"  :   "Logic",
+        "id"    :   6,
+        "prev"  :   5,
+        "indent"    :   0,
+        "primary"   :   "10",
+        "secondary" :   "driveTime",
+        "tertiary"  :   "Assign"
+        "line"      :   "store 10 in driveTime"
+        }
+        ,
+        {
+        "type"  :   "Task",
+        "id"    :   7,
+        "prev"  :   6,
+        "indent"    :   0,
+        "primary"   :   "None",
+        "secondary" :   "None",
+        "tertiary"  :   "None"
+        "line"      :   "run driveSquare with driveTime"
+        }
+        ,
+        {
+        "type"  :   "Logic",
+        "id"    :   8,
+        "prev"  :   7,
+        "indent"    :   0,
+        "primary"   :   "5",
+        "secondary" :   "moveTime",
+        "tertiary"  :   "Assign"
+        "line"      :   "store 5 in moveTime"
+        }
+        ,
+        {
+        "type"  :   "Movement",
+        "id"    :   9,
+        "prev"  :   8,
+        "indent"    :   0,
+        "primary"   :   "backward",
+        "secondary" :   "moveTime",
+        "tertiary"  :   "Go"
+        "line"      :   "go backward for moveTime seconds"
+        }
+        ,
+        {
+        "type"  :   "Task",
+        "id"    :   10,
+        "prev"  :   9,
+        "indent"    :   0,
+        "primary"   :   "None",
+        "secondary" :   "None",
+        "tertiary"  :   "None"
+        "line"      :   "run driveSquare with moveTime"
+        }
+        ]

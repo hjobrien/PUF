@@ -3,7 +3,7 @@ from writer import getCommand, Writer
 from json_helper import toJson, JsonLine
 import re
 
-inFileName = "complicated_example"
+inFileName = "driveExplore"
 outFileName = "hankisverycool.py"
 jsonFileName = "hankisverycool.json"
 

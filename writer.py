@@ -3,7 +3,7 @@ from string_helper import getLeadingWhitespace, commasInArgs
 
 PARSE_COMMAND_PATTERN = "((is something)|(else if)|([a-zA-Z]))\w+"
 PARSE_GO_PATTERN = "(?i)\s*go\s+(\w+)\s+for\s+([\w\.]+)(\s+(\w+))?"
-PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+degrees\s+([\w\.]+)"
+PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+([\w\.]+)"
 PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
 PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
