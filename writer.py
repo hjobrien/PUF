@@ -10,7 +10,7 @@ PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
 PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
 PARSE_STORESTRING_PATTERN = "(?i)\s*store\s+\"(\w+)\"\s+in\s+(\w+)"
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
-PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+using\s+(.*)"
+PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)(\s+using\s+(.*))?"
 PARSE_EQUALS_PATTERN = "(?i)\s*(.+)\s*equals\?\s*(.+)"
 PARSE_SET_PATTERN = "(?i)\s*set\s+(\w+)\s+to\s+(\w+)"
 PARSE_RUN_PATTERN = "(?i)\s*run\s+(\w+)\s+with\s+(.*)"
@@ -174,6 +174,7 @@ class Writer:
     def convert(self, line):
         if self.inline:
             self.lines.append(getLeadingWhitespace(self.lines[-1]) + line.strip())
+            return
         ws = getLeadingWhitespace(line)
         line = line.strip()
         self.lines.append(ws + self.getPython(line))

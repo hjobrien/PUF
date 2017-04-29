@@ -1,7 +1,7 @@
 create task driveSquare using sideLength
   do
     go forward for sideLength seconds
-    turn left for 90deg
+    turn left for 90
   4 times
 
 store 10 in driveTime

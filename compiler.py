@@ -3,7 +3,7 @@ from writer import getCommand, Writer
 from json_helper import toJson, JsonLine
 import re
 
-inFileName = "samplecode.hlf"
+inFileName = "complicated_example"
 outFileName = "hankisverycool.py"
 jsonFileName = "hankisverycool.json"
 
@@ -41,16 +41,23 @@ def _main():
         elif prevRelLine[-1] != None and prevRelLine[-1][0] == "python":
             writer.inline = False
         else:
-            writer.convert(line)
-            jsonObj = toJson(line)
-            jsonObj.id = line_no
-            jsonObj.prev = line_no - 1  #Dis shit is hacked together as fuck
-            jsonObj.indent = len(ws)
-            jOut.write(str(jsonObj))
+            try:
+                writer.convert(line)
+            except Exception:
+                print("Error parsing line: %i" % line_no)
+            if not writer.inline:
+                jsonObj = toJson(line)
+                jsonObj.id = line_no
+                jsonObj.prev = line_no - 1  #Dis shit is hacked together as fuck
+                jsonObj.indent = len(ws)
+                jOut.write(str(jsonObj))
 
         if prevRelLine[-1] != None:
             prevRelLine.pop()
-        command = getCommand(line)
+        try:
+            command = getCommand(line)
+        except Exception:
+            print("Error parsing line: %i" % line_no)
         if command == "python":
             writer.inline = True
         # print(prevRelLine[-2] if len(prevRelLine) > 1 else "Top")

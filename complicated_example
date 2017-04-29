@@ -1,0 +1,18 @@
+create task arcPath
+  store 0 in loopNum
+  store 0 in sideLength
+  python:
+    import random
+    i = 0
+    sideLength = random.randInt(10)
+  store 360 / loopNum in angle
+  do
+    go forward for sideLength seconds
+    turn left for angle   #motor degrees, not heading degrees
+  loopNum times
+
+store 0 in counter
+do
+  run arcPath
+  set counter to counter + 1 #doesn't do anything
+5 times
