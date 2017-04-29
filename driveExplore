@@ -1,0 +1,11 @@
+create task driveSquare using sideLength
+  do
+    go forward for sideLength seconds
+    turn left for 90deg
+  4 times
+
+store 10 in driveTime
+run driveSquare with driveTime
+store 5 in moveTime
+go backward for moveTime seconds
+run driveSquare with moveTime

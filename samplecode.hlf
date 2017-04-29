@@ -9,8 +9,7 @@ Create Task example using var1 var2
     notUsed = 10
     name = robot.getName() #this section might change
   Display name + " is back where I started"
-end task
 
 store 10 in howLong
-run nameRobot using "Our Robot"
-run example using values howLong
+run nameRobot with "Our Robot"
+run example with howLong

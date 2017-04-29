@@ -1,3 +1,5 @@
+import re
+
 def getLeadingWhitespace(str):
     length = len(str) - len(str.lstrip())
     return str[:length]
@@ -12,3 +14,10 @@ def whitespaceValid(line, indentation, startOfBlock):
         while len(ws) < len(prev) and indentation:
             prev = indentation.pop()
         return prev == ws
+
+def commasInArgs(args):
+    #Spec changed, this is easiest fix
+    return args
+
+def processComments(line):
+    return re.sub("#.*", "", line)

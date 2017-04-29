@@ -1,5 +1,5 @@
 import re
-from string_helper import getLeadingWhitespace
+from string_helper import getLeadingWhitespace, commasInArgs
 
 PARSE_COMMAND_PATTERN = "((is something)|(else if)|([a-zA-Z]))\w+"
 PARSE_GO_PATTERN = "(?i)\s*go\s+(\w+)\s+for\s+([\w\.]+)(\s+(\w+))?"
@@ -13,6 +13,7 @@ PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
 PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)\s+using\s+(.*)"
 PARSE_EQUALS_PATTERN = "(?i)\s*(.+)\s*equals\?\s*(.+)"
 PARSE_SET_PATTERN = "(?i)\s*set\s+(\w+)\s+to\s+(\w+)"
+PARSE_RUN_PATTERN = "(?i)\s*run\s+(\w+)\s+with\s+(.*)"
 
 
 def getCommand(line):
@@ -98,7 +99,7 @@ def parseTask(line):
         raise Exception("task line has improper syntax")
     name = match.group(1)
     params = match.group(2)
-    return (name, params)
+    return (name, commasInArgs(params))
 
 
 def parseEquals(line):
@@ -120,6 +121,13 @@ def parseSet(line):
     value = match.group(2)
     return (name, value)
 
+def parseRun(line):
+    match = re.search(PARSE_RUN_PATTERN, line)
+    if not match:
+        raise Exception("Run line has improper syntax")
+    method = match.group(1)
+    args = match.group(2)
+    return (method, commasInArgs(args))
 
 class Writer:
     lines = []
@@ -128,6 +136,7 @@ class Writer:
     def __init__(self, outputFileName):
         self.outputFileName = outputFileName
         self.fileOut = open(outputFileName, "w")
+        self.inline = False
 
     def getPython(self, line):
         command = getCommand(line).lower()
@@ -157,10 +166,14 @@ class Writer:
             return "%s == %s" % parseEquals(line)
         elif command == "set":
             return "%s = %s" % parseSet(line)
+        elif command == "run":
+            return "%s(%s)" % parseRun(line)
         else:
             return "Failed to parse: %s" % line
 
     def convert(self, line):
+        if self.inline:
+            self.lines.append(getLeadingWhitespace(self.lines[-1]) + line.strip())
         ws = getLeadingWhitespace(line)
         line = line.strip()
         self.lines.append(ws + self.getPython(line))
@@ -182,5 +195,5 @@ class Writer:
 
     def close(self):
         for line in self.lines:
-            self.fileOut.write(line)
+            self.fileOut.write(line + "\n")
         self.fileOut.close()
