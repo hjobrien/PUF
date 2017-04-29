@@ -1,9 +1,12 @@
-def driveSquare(sideLength):
-  for _ in range(4):
+  loopNum = 0
+  sideLength = 0
+  Failed to parse: python:
+  import random
+  i = 0
+  sideLength = random.randInt(10)
+  for _ in range(loopNum):
     controller.move("forward", sideLength)
-    controller.turn(left, 90)
-driveTime = 10
-driveSquare(driveTime)
-moveTime = 5
-controller.move("backward", moveTime)
-driveSquare(moveTime)
+    controller.turn(left, angle)
+counter = 0
+for _ in range(5):
+  counter = counter

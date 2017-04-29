@@ -131,6 +131,10 @@ def parseRun(line):
 
 class Writer:
     lines = []
+    marks = []
+
+    def mark(self):
+        self.marks.append(len(self.lines))
 
     # indent = [""]
     def __init__(self, outputFileName):
@@ -147,6 +151,7 @@ class Writer:
         elif command == "turn":
             return "controller.turn(%s, %s)" % parseTurn(line)
         elif command == "do":
+            self.mark()
             return "for _ in range(%s):"
         elif command == "while":
             return "while %s:" % parseWhile(line)
@@ -183,9 +188,10 @@ class Writer:
         self.lines.append(ws + self.getPython(line))
 
 
-    def formatLine(self, i, *args):
-        if i >= len(self.lines):
+    def formatLine(self, *args):
+        if not self.marks:
             raise Exception("Cannot format a non existing line")
+        i = self.marks.pop()
         self.lines[i] = self.lines[i] % args
         return self.lines[i]
         # def popLine():

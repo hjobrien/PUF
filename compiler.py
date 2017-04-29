@@ -3,7 +3,7 @@ from writer import getCommand, Writer
 from json_helper import toJson, JsonLine
 import re
 
-inFileName = "driveExplore"
+inFileName = "complicated_example"
 outFileName = "hivc.py"
 jsonFileName = "hivc.json"
 
@@ -37,7 +37,7 @@ def _main():
             temp = prevRelLine.pop()
             assert temp == None or temp[0] not in ["do"], "Error, failed to properly close \"%s\" on line %i" % (temp[0], temp[1])
         if prevRelLine[-1] != None and prevRelLine[-1][0] == "do":
-            writer.formatLine(prevRelLine[-1][1] - 1, re.search("\d+", line).group())
+            writer.formatLine(line.replace("times", "").strip())
         elif prevRelLine[-1] != None and prevRelLine[-1][0] == "python":
             writer.inline = False
         else:
