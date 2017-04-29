@@ -1,20 +1,21 @@
 from RPIO import PWM
 
-servo = PWM.Servo()
+servo1 = PWM.Servo()
+servo2 = PWM.Servo()
 
 ## FIRST MOTOR
 # Set servo on GPIO17 to 800µs
-servo.set_servo(17, 800)
+servo1.set_servo(17, 800)
 # Set servo on GPIO17 to 2200µs
-servo.set_servo(17, 2200)
+servo1.set_servo(17, 2200)
 
 ## SECOND MOTOR
-servo.set_servo(18, 800)
-servo.set_servo(18, 2000)
+servo2.set_servo(18, 800)
+servo2.set_servo(18, 2000)
 
 # Clear servo on GPIO17 and GPIO18
-servo.stop_servo(17)
-servo.stop_servo(18)
+servo1.stop_servo(17)
+servo2.stop_servo(18)
 
 
 class Servo:
