@@ -15,15 +15,15 @@ class JsonLine:
         return '''
         {
         "type"  :   "%s",
-        "id"    :   "%i",
-        "prev"  :   "%i",
-        "indent"    :   "%i",
+        "id"    :   "%s",
+        "prev"  :   "%s",
+        "indent"    :   "%s",
         "primary"   :   "%s",
         "secondary" :   "%s",
         "tertiary"  :   "%s",
         "line"      :   "%s"
         }
-        ''' % (self.type if self.type else "", self.id if self.id else "", self.prev if self.prev else "", self.indent if self.ident else "", self.primary if self.primary else "", self.secondary if self.secondary else "", self.tertiary if self.tertiary else "", self.line) if self.line else ""
+        ''' % (str(self.type) if self.type else "", str(self.id) if self.id else "", str(self.prev) if self.prev else "", str(self.indent) if self.indent else "", str(self.primary) if self.primary else "", str(self.secondary) if self.secondary else "", str(self.tertiary) if self.tertiary else "", str(self.line) if self.line else "")
 
 
 def toJson(line):
@@ -46,6 +46,7 @@ def toJson(line):
     elif command == "do":
         type = "Control"
         primary = "do loop"
+
         secondary, tertiary = None, None
     elif command == "while":
         type = "Control"

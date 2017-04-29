@@ -167,7 +167,7 @@ class Writer:
             return "print(%s)" % parseDisplay(line)
         elif command == "create":
             fun, args = parseTask(line)
-            args = args.replace("using", "")
+            args = args.replace("using", "") if args else ""
             args = args.strip()
             return "def %s(%s):" % (fun,args)
         elif command == "equals?":
