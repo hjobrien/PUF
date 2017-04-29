@@ -93,6 +93,9 @@ def toJson(line):
         type = "Logic"
         primary, secondary = parseSet(line)
         tertiary = "Assign"
+    elif command = "run":
+        type = "Task"
+        primary,
     else:
         type = "Error"
 
