@@ -41,7 +41,7 @@ def _main():
         try:
              writer.convert(line)
         except Exception:
-            print("Error parsing line: %i" % line_no)
+            # print("Error parsing line: %i" % line_no)
             assert 0==0
         if not writer.inline:
             jsonObj = toJson(line)
@@ -55,7 +55,7 @@ def _main():
         try:
             command = getCommand(line)
         except Exception:
-            print("Error parsing line: %i" % line_no)
+            # print("Error parsing line: %i" % line_no)
             assert 0 == 0
         if command == "python":
             writer.inline = True
