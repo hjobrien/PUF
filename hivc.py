@@ -12,5 +12,5 @@ def arcPath():
   
 counter = 0
 for _ in range(5):
-  counter = counter
+  counter = counter + 1
 

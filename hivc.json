@@ -137,7 +137,7 @@
         "prev"  :   "15",
         "indent"    :   "2",
         "primary"   :   "counter",
-        "secondary" :   "counter",
+        "secondary" :   "counter + 1 ",
         "tertiary"  :   "Assign",
         "line"      :   "set counter to counter + 1"
         }
