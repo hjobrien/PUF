@@ -38,25 +38,24 @@ def _main():
             writer.formatLine(line.replace("times", "").strip())
         elif prevRelLine[-1] != None and prevRelLine[-1][0] == "python":
             writer.inline = False
-        else:
-            try:
-                writer.convert(line)
-            except Exception:
-                # print("Error parsing line: %i" % line_no)
-                assert 0==0
-            if not writer.inline:
-                jsonObj = toJson(line)
-                jsonObj.id = line_no
-                jsonObj.prev = line_no - 1  #Dis shit is hacked together as fuck
-                jsonObj.indent = len(ws)
-                jOut.write(str(jsonObj))
+        try:
+             writer.convert(line)
+        except Exception:
+            print("Error parsing line: %i" % line_no)
+            assert 0==0
+        if not writer.inline:
+            jsonObj = toJson(line)
+            jsonObj.id = line_no
+            jsonObj.prev = line_no - 1  #Dis shit is hacked together as fuck
+            jsonObj.indent = len(ws)
+            jOut.write(str(jsonObj))
 
         if prevRelLine[-1] != None:
             prevRelLine.pop()
         try:
             command = getCommand(line)
         except Exception:
-            # print("Error parsing line: %i" % line_no)
+            print("Error parsing line: %i" % line_no)
             assert 0 == 0
         if command == "python":
             writer.inline = True
@@ -67,7 +66,7 @@ def _main():
         line_no += 1
 
 
-    # writer.printLines()
+    writer.printLines()
     writer.close()
     jOut.write("]")
     jOut.close()

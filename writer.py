@@ -7,8 +7,8 @@ PARSE_TURN_PATTERN = "(?i)\s*turn\s+(\w+)\s+for\s+([\w\.]+)"
 PARSE_WHILE_PATTERN = "(?i)\s*while\s+(.+):"
 PARSE_IF_PATTERN = "(?i)\s*if\s+(.+):"
 PARSE_ELIF_PATTERN = "(?i)\s*else\s+if\s+(.+):"
-PARSE_STORE_PATTERN = "(?i)\s*store\s+(\w+)\s+in\s+(\w+)"
-PARSE_STORESTRING_PATTERN = "(?i)\s*store\s+\"(\w+)\"\s+in\s+(\w+)"
+PARSE_STORE_PATTERN = "(?i)\s*store\s+(.*)\s+in\s+(\w+)"
+PARSE_STORESTRING_PATTERN = "(?i)\s*store\s+\"(.*)\"\s+in\s+(\w+)"
 PARSE_DISPLAY_PATTERN = "(?i)\s*display\s+(.+)"
 PARSE_TASK_PATTERN = "(?i)\s*create\s+task\s+(\w+)(\s+using\s+(.*))?"
 PARSE_EQUALS_PATTERN = "(?i)\s*(.+)\s*equals\?\s*(.+)"
@@ -144,6 +144,8 @@ class Writer:
 
     def getPython(self, line):
         command = getCommand(line).lower()
+        if re.search(".*times\s*", line):
+            return ""
         if not command:
             return ""
         elif command == "go":
